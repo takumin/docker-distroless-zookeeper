@@ -1,0 +1,32 @@
+x-zookeeper: &zookeeper
+  image: ${SERVICE_IMAGE_TAG:-takumi/distroless-zookeeper}
+x-zookeeper-env: &zookeeper-env
+  ZOOKEEPER_SERVER_1_ENDPOINT:      zookeeper1
+  ZOOKEEPER_SERVER_1_LEADER_PORT:   2888
+  ZOOKEEPER_SERVER_1_ELECTION_PORT: 3888
+  ZOOKEEPER_SERVER_2_ENDPOINT:      zookeeper2
+  ZOOKEEPER_SERVER_2_LEADER_PORT:   2888
+  ZOOKEEPER_SERVER_2_ELECTION_PORT: 3888
+  ZOOKEEPER_SERVER_3_ENDPOINT:      zookeeper3
+  ZOOKEEPER_SERVER_3_LEADER_PORT:   2888
+  ZOOKEEPER_SERVER_3_ELECTION_PORT: 3888
+
+services:
+  zookeeper1:
+    <<: *zookeeper
+    container_name: zookeeper1
+    environment:
+      <<: *zookeeper-env
+      ZOOKEEPER_SERVER_ID: 1
+  zookeeper2:
+    <<: *zookeeper
+    container_name: zookeeper2
+    environment:
+      <<: *zookeeper-env
+      ZOOKEEPER_SERVER_ID: 2
+  zookeeper3:
+    <<: *zookeeper
+    container_name: zookeeper3
+    environment:
+      <<: *zookeeper-env
+      ZOOKEEPER_SERVER_ID: 3
