@@ -108,6 +108,12 @@ func (c *Config) GetEnvServers() error {
 		if len(v) != 2 {
 			return fmt.Errorf("invalid environment variable: %s", v[0])
 		}
+		if !strings.HasPrefix(v[0], "ZOOKEEPER_SERVER_") {
+			continue
+		}
+		if strings.HasPrefix(v[0], "ZOOKEEPER_SERVER_ID") {
+			continue
+		}
 		if r := reServersEndpoint.FindStringSubmatch(v[0]); len(r) > 0 {
 			i, err := strconv.ParseUint(r[1], 10, 8)
 			if err != nil {
