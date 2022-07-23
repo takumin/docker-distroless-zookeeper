@@ -37,91 +37,66 @@ type Server struct {
 }
 
 func (c *Config) GetEnvClientPort() error {
-	t := reflect.TypeOf(*c)
-	for i := 0; i < t.NumField(); i++ {
-		if t.Field(i).Name != "ClientPort" {
-			continue
-		}
-		if v, ok := os.LookupEnv(t.Field(i).Tag.Get("env")); ok {
+	if f, ok := reflect.TypeOf(*c).FieldByName("ClientPort"); ok {
+		if v, ok := os.LookupEnv(f.Tag.Get("env")); ok {
 			i, err := strconv.ParseUint(v, 10, 16)
 			if err != nil {
 				return err
 			}
 			c.ClientPort = uint16(i)
 		}
-		break
 	}
 	return nil
 }
 
 func (c *Config) GetEnvTickTime() error {
-	t := reflect.TypeOf(*c)
-	for i := 0; i < t.NumField(); i++ {
-		if t.Field(i).Name != "TickTime" {
-			continue
-		}
-		if v, ok := os.LookupEnv(t.Field(i).Tag.Get("env")); ok {
+	if f, ok := reflect.TypeOf(*c).FieldByName("TickTime"); ok {
+		if v, ok := os.LookupEnv(f.Tag.Get("env")); ok {
 			i, err := strconv.ParseUint(v, 10, 16)
 			if err != nil {
 				return err
 			}
 			c.TickTime = uint16(i)
 		}
-		break
 	}
 	return nil
 }
 
 func (c *Config) GetEnvInitLimit() error {
-	t := reflect.TypeOf(*c)
-	for i := 0; i < t.NumField(); i++ {
-		if t.Field(i).Name != "InitLimit" {
-			continue
-		}
-		if v, ok := os.LookupEnv(t.Field(i).Tag.Get("env")); ok {
+	if f, ok := reflect.TypeOf(*c).FieldByName("InitLimit"); ok {
+		if v, ok := os.LookupEnv(f.Tag.Get("env")); ok {
 			i, err := strconv.ParseUint(v, 10, 16)
 			if err != nil {
 				return err
 			}
 			c.InitLimit = uint16(i)
 		}
-		break
 	}
 	return nil
 }
 
 func (c *Config) GetEnvSyncLimit() error {
-	t := reflect.TypeOf(*c)
-	for i := 0; i < t.NumField(); i++ {
-		if t.Field(i).Name != "SyncLimit" {
-			continue
-		}
-		if v, ok := os.LookupEnv(t.Field(i).Tag.Get("env")); ok {
+	if f, ok := reflect.TypeOf(*c).FieldByName("SyncLimit"); ok {
+		if v, ok := os.LookupEnv(f.Tag.Get("env")); ok {
 			i, err := strconv.ParseUint(v, 10, 16)
 			if err != nil {
 				return err
 			}
 			c.SyncLimit = uint16(i)
 		}
-		break
 	}
 	return nil
 }
 
 func (c *Config) GetEnvServerID() error {
-	t := reflect.TypeOf(*c)
-	for i := 0; i < t.NumField(); i++ {
-		if t.Field(i).Name != "ServerID" {
-			continue
-		}
-		if v, ok := os.LookupEnv(t.Field(i).Tag.Get("env")); ok {
+	if f, ok := reflect.TypeOf(*c).FieldByName("ServerID"); ok {
+		if v, ok := os.LookupEnv(f.Tag.Get("env")); ok {
 			i, err := strconv.ParseUint(v, 10, 8)
 			if err != nil {
 				return err
 			}
 			c.ServerID = uint8(i)
 		}
-		break
 	}
 	return nil
 }
